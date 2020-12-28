@@ -1,0 +1,24 @@
+type User {
+  id: Int!
+  email: String!
+  profilePhoto: String
+  intro: String
+  username: String
+  firstName: String!
+  lastName: String!
+  loginSecret: String!
+  following: [User]
+  follower: [User]
+  isFollowing: Boolean
+  posts: [Post]
+  likes: [Like]
+  comments: [Comment]
+  chats: [Chat]
+  messages: [Message]
+  createdAt: String
+  updatedAt: String
+}
+
+type Query {
+  users: [User]
+}

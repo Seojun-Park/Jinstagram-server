@@ -7,20 +7,27 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
-import Post from "./Post";
+import Chat from "./Chat";
+import User from "./User";
 
 @Entity()
-class Image extends BaseEntity {
+class Message extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @Column({ type: "text" })
-  url: string;
+  text: string;
 
-  @ManyToOne(() => Post, (post) => post.images)
-  post: Post;
+  @ManyToOne(() => Chat, (chat) => chat.messages)
+  chat: Chat;
 
   @Column({ nullable: true })
-  postId: number;
+  chatId: number;
+
+  @ManyToOne(() => User, (user) => user.messages)
+  user: User;
+
+  @Column({ nullable: true })
+  userId: number;
 
   @CreateDateColumn()
   createdAt: string;
@@ -29,4 +36,4 @@ class Image extends BaseEntity {
   updatedAt: string;
 }
 
-export default Image;
+export default Message;

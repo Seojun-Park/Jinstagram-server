@@ -20,8 +20,14 @@ class Comment extends BaseEntity {
   @ManyToOne(() => User, (user) => user.comments)
   user: User;
 
+  @Column({ nullable: true })
+  userId: number;
+
   @ManyToOne(() => Post, (post) => post.comments)
   post: Post;
+
+  @Column({ nullable: true })
+  postId: number;
 
   @CreateDateColumn()
   createdAt: string;

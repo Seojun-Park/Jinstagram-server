@@ -1,0 +1,86 @@
+type Chat {
+  id: Int!
+  messages: [Message]
+  participants: [User!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  chatId: Int
+  user: User!
+  userId: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Comment {
+  id: Int!
+  text: String!
+  user: User!
+  userId: Int
+  post: Post!
+  postId: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Image {
+  id: Int!
+  url: String!
+  post: Post!
+  postId: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Like {
+  id: Int!
+  user: User!
+  post: Post!
+  userId: Int
+  postId: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Post {
+  id: Int!
+  location: String
+  caption: String
+  user: User!
+  images: [Image]
+  likes: [Like]
+  comments: [Comment]
+  isLiked: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+type User {
+  id: Int!
+  email: String!
+  profilePhoto: String
+  intro: String
+  username: String
+  firstName: String!
+  lastName: String!
+  loginSecret: String!
+  following: [User]
+  follower: [User]
+  isFollowing: Boolean
+  posts: [Post]
+  likes: [Like]
+  comments: [Comment]
+  chats: [Chat]
+  messages: [Message]
+  createdAt: String
+  updatedAt: String
+}
+
+type Query {
+  users: [User]
+}

@@ -4,12 +4,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
+import Chat from "./Chat";
 import Comment from "./Comment";
 import Like from "./Like";
+import Message from "./Message";
 import Post from "./Post";
 
 @Entity()
@@ -19,6 +22,16 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   @IsEmail()
   email: string;
+
+  @Column({
+    type: "text",
+    default:
+      "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
+  })
+  profilePhoto: string | null;
+
+  @Column({ type: "text", nullable: true })
+  intro: string;
 
   @Column({ type: "text" })
   username: string;
@@ -31,6 +44,9 @@ class User extends BaseEntity {
 
   @Column({ type: "text" })
   loginSecret: string;
+
+  @Column({ type: "boolean", default: false })
+  isFollowing: boolean;
 
   @OneToMany(() => User, (user) => user.following)
   following: User[];
@@ -48,6 +64,12 @@ class User extends BaseEntity {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @ManyToMany(() => Chat, (chat) => chat.participants)
+  chats: Chat[];
+
+  @OneToMany(() => Message, (message) => message.user)
+  messages: Message[];
 
   @CreateDateColumn()
   createdAt: string;

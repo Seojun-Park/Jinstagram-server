@@ -1,0 +1,9 @@
+type Like {
+  id: Int!
+  user: User!
+  post: Post!
+  userId: Int
+  postId: Int
+  createdAt: String
+  updatedAt: String
+}

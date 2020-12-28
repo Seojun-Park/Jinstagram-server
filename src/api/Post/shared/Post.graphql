@@ -1,0 +1,12 @@
+type Post {
+  id: Int!
+  location: String
+  caption: String
+  user: User!
+  images: [Image]
+  likes: [Like]
+  comments: [Comment]
+  isLiked: Boolean
+  createdAt: String
+  updatedAt: String
+}
