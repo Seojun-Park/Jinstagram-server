@@ -1,16 +1,12 @@
-import dotenv from "dotenv";
-import path from "path";
+import "./env";
 import { Options } from "graphql-yoga";
-import {
-  GRAPHQL_ENDPOINT,
-  PLAYGROUND_ENDPOINT,
-  SUBSCRIPTION_ENDPOINT
-} from "./env";
 import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import app from "./app";
 
-dotenv.config({ path: path.resolve(__dirname, ".env") });
+const PLAYGROUND_ENDPOINT: string = "/playground";
+const GRAPHQL_ENDPOINT: string = "/graphql";
+const SUBSCRIPTION_ENDPOINT: string = "/subscription";
 
 const PORT = process.env.PORT || 4000;
 const appOption: Options = {

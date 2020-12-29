@@ -1,3 +1,3 @@
-export const PLAYGROUND_ENDPOINT: string = "/playground";
-export const GRAPHQL_ENDPOINT: string = "/graphql";
-export const SUBSCRIPTION_ENDPOINT: string = "/subscription";
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, ".env") });

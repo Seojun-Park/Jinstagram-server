@@ -7,6 +7,7 @@
   "author": "SeoJun Park <jinchul112@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@types/helmet": "^4.0.0",
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.3",
     "class-validator": "^0.12.2",
@@ -14,7 +15,7 @@
     "graphql-to-typescript": "^0.1.2",
     "graphql-tools": "^7.0.2",
     "graphql-yoga": "^1.18.3",
-    "helmet": "^4.3.1",
+    "helmet": "3.23.3",
     "merge-graphql-schemas": "^1.7.8",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
@@ -28,7 +29,6 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",
-    "@types/helmet": "^4.0.0",
     "@types/morgan": "^1.9.2",
     "@types/node": "^14.14.16",
     "babel-runtime": "^6.26.0",
