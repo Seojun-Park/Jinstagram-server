@@ -17,21 +17,24 @@ const resolvers: Resolvers = {
       try {
         if (user?.loginSecret === code) {
           user.loginSecret = "";
-          generateToken(user.id);
+          const token = generateToken(user.id);
           return {
             ok: true,
-            err: null
+            err: null,
+            token
           };
         } else {
           return {
             ok: false,
-            err: "Wrong email and code combination"
+            err: "Wrong email and code combination",
+            token: null
           };
         }
       } catch (err) {
         return {
           ok: false,
-          err: err.message
+          err: err.message,
+          token: null
         };
       }
     }

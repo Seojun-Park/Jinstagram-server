@@ -63,6 +63,7 @@ type Post {
 type ConfirmSecretResponse {
   ok: Boolean!
   err: String
+  token: String
 }
 
 type Mutation {
