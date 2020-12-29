@@ -1,0 +1,14 @@
+type EditUserResponse {
+  ok: Boolean!
+  err: String
+}
+
+type Mutation {
+  EditUser(
+    profilePhoto: String
+    intro: String
+    username: String
+    firstName: String
+    lastName: String
+  ): EditUserResponse!
+}
