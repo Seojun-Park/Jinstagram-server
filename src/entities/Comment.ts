@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -24,6 +25,7 @@ class Comment extends BaseEntity {
   userId: number;
 
   @ManyToOne(() => Post, (post) => post.comments)
+  @JoinColumn()
   post: Post;
 
   @Column({ nullable: true })

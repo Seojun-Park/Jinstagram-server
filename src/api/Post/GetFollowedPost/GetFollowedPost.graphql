@@ -1,0 +1,9 @@
+type GetFollowedPostResponse {
+  ok: Boolean!
+  err: String
+  post: [Post]
+}
+
+type Query {
+  GetFollowedPost(page: Int!): GetFollowedPostResponse!
+}

@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -18,6 +19,7 @@ class Message extends BaseEntity {
   text: string;
 
   @ManyToOne(() => Chat, (chat) => chat.messages)
+  @JoinColumn()
   chat: Chat;
 
   @Column({ nullable: true })

@@ -17,15 +17,22 @@ type Message {
   updatedAt: String
 }
 
-type GetFullPostResponse {
+type GetFollowedPostResponse {
   ok: Boolean!
   err: String
   post: [Post]
 }
 
 type Query {
+  GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
   users: [User]
+}
+
+type GetFullPostResponse {
+  ok: Boolean!
+  err: String
+  post: [Post]
 }
 
 type Comment {

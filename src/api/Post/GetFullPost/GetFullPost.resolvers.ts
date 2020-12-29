@@ -13,7 +13,6 @@ const resolvers: Resolvers = {
       { isAuthenticated, request }
     ): Promise<GetFullPostResponse> => {
       isAuthenticated(request);
-      console.log(request.user);
       const { page } = args;
       try {
         const post = await Post.find({

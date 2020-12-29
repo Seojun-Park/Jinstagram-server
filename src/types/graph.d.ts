@@ -1,16 +1,21 @@
-export const typeDefs = ["type Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User!]!\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Query {\n  GetFullPost(page: Int!): GetFullPostResponse!\n  users: [User]\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype Mutation {\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chats: [Chat]\n  messages: [Message]\n  createdAt: String\n  updatedAt: String\n}\n"];
+export const typeDefs = ["type Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User!]!\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype GetFollowedPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Query {\n  GetFollowedPost(page: Int!): GetFollowedPostResponse!\n  GetFullPost(page: Int!): GetFullPostResponse!\n  users: [User]\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype Mutation {\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chats: [Chat]\n  messages: [Message]\n  createdAt: String\n  updatedAt: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
+  GetFollowedPost: GetFollowedPostResponse;
   GetFullPost: GetFullPostResponse;
   users: Array<User> | null;
+}
+
+export interface GetFollowedPostQueryArgs {
+  page: number;
 }
 
 export interface GetFullPostQueryArgs {
   page: number;
 }
 
-export interface GetFullPostResponse {
+export interface GetFollowedPostResponse {
   ok: boolean;
   err: string | null;
   post: Array<Post> | null;
@@ -97,6 +102,12 @@ export interface Image {
   postId: number | null;
   createdAt: string | null;
   updatedAt: string | null;
+}
+
+export interface GetFullPostResponse {
+  ok: boolean;
+  err: string | null;
+  post: Array<Post> | null;
 }
 
 export interface Mutation {
