@@ -67,6 +67,13 @@ type CreateAccountResponse {
 
 type Mutation {
   CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
+  RequestCode(email: String!): RequestCodeResponse!
+}
+
+type RequestCodeResponse {
+  ok: Boolean!
+  err: String
+  token: String
 }
 
 type User {

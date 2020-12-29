@@ -31,7 +31,7 @@ class User extends BaseEntity {
   profilePhoto: string | null;
 
   @Column({ type: "text", nullable: true })
-  intro: string;
+  intro: string | null;
 
   @Column({ type: "text" })
   username: string;

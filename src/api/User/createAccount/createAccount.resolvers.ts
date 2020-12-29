@@ -7,17 +7,11 @@ import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
-    createAccount: async (
+    CreateAccount: async (
       _,
       args: CreateAccountMutationArgs
     ): Promise<CreateAccountResponse> => {
-      const {
-        username,
-        email,
-        firstName = "",
-        lastName = "",
-        intro = ""
-      } = args;
+      const { email } = args;
       const exists = await User.findOne({ email });
       try {
         if (exists) {
@@ -26,7 +20,11 @@ const resolvers: Resolvers = {
             err: "This email address is existed account"
           };
         } else {
-          const newUser = await User.create({ ...args });
+          await User.create({ ...args }).save();
+          return {
+            ok: true,
+            err: null
+          };
         }
       } catch (err) {
         return {
