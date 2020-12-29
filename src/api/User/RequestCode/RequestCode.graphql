@@ -1,7 +1,7 @@
 type RequestCodeResponse {
   ok: Boolean!
   err: String
-  token: String
+  code: String
 }
 
 type Mutation {

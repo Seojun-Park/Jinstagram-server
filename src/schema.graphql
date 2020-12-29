@@ -60,20 +60,26 @@ type Post {
   updatedAt: String
 }
 
-type CreateAccountResponse {
+type ConfirmSecretResponse {
   ok: Boolean!
   err: String
 }
 
 type Mutation {
+  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
   CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
   RequestCode(email: String!): RequestCodeResponse!
+}
+
+type CreateAccountResponse {
+  ok: Boolean!
+  err: String
 }
 
 type RequestCodeResponse {
   ok: Boolean!
   err: String
-  token: String
+  code: String
 }
 
 type User {
