@@ -26,6 +26,7 @@ type GetFollowedPostResponse {
 type Query {
   GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
+  Me: MeResponse!
   users: [User]
 }
 
@@ -88,6 +89,7 @@ type Mutation {
   ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
   CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
   RequestCode(email: String!): RequestCodeResponse!
+  ToggleFollowing(username: String!): ToggleFollowingResponse!
 }
 
 type ConfirmSecretResponse {
@@ -99,6 +101,12 @@ type ConfirmSecretResponse {
 type CreateAccountResponse {
   ok: Boolean!
   err: String
+}
+
+type MeResponse {
+  ok: Boolean!
+  err: String
+  user: User
 }
 
 type RequestCodeResponse {
@@ -126,4 +134,9 @@ type User {
   messages: [Message]
   createdAt: String
   updatedAt: String
+}
+
+type ToggleFollowingResponse {
+  ok: Boolean!
+  err: String
 }

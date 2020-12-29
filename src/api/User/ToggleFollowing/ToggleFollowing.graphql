@@ -1,0 +1,8 @@
+type ToggleFollowingResponse {
+  ok: Boolean!
+  err: String
+}
+
+type Mutation {
+  ToggleFollowing(username: String!): ToggleFollowingResponse!
+}
