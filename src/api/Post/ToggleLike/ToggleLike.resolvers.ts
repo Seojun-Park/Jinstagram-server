@@ -1,26 +1,23 @@
 import { Resolvers } from "../../../types/resolvers";
 import {
-  ToggleFollowingMutationArgs,
-  ToggleFollowingResponse
+  ToggleLikeMutationArgs,
+  ToggleLikeResponse
 } from "../../../types/graph";
-import User from "../../../entities/User";
+import Post from "../../../entities/Post";
 
 const resolvers: Resolvers = {
   Mutation: {
-    ToggleFollowing: async (
+    ToggleLike: async (
       _,
-      args: ToggleFollowingMutationArgs,
+      args: ToggleLikeMutationArgs,
       { request, isAuthenticated }
-    ): Promise<ToggleFollowingResponse> => {
+    ): Promise<ToggleLikeResponse> => {
       isAuthenticated(request);
-      const { username } = args;
+      const { postId } = args;
+      const post = await Post.findOne({ id: postId });
       try {
-        const user = await User.findOne({
-          username
-        });
-        if (user) {
-          user.isFollowing = user.isFollowing === false ? true : false;
-          user.save();
+        if (post) {
+          post.isLiked = post.isLiked === false ? true : false;
           return {
             ok: true,
             err: null
@@ -28,7 +25,7 @@ const resolvers: Resolvers = {
         } else {
           return {
             ok: false,
-            err: "Can't find this user"
+            err: "Not found the post"
           };
         }
       } catch (err) {
