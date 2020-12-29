@@ -42,7 +42,7 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   lastName: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   loginSecret: string;
 
   @Column({ type: "boolean", default: false })

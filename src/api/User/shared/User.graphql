@@ -6,7 +6,7 @@ type User {
   username: String!
   firstName: String!
   lastName: String!
-  loginSecret: String!
+  loginSecret: String
   following: [User]
   follower: [User]
   isFollowing: Boolean

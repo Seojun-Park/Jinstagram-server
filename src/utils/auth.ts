@@ -1,3 +1,4 @@
+import "../env";
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
 import jwt from "jsonwebtoken";
@@ -30,7 +31,7 @@ const sendMail = (email) => {
   return client.sendMail(email);
 };
 
-export const sendSecretMail = (address, secret) => {
+export const sendSecretMail = async (address: string, secret: string) => {
   const email = {
     from: "jinpark@student.42.fr",
     to: address,
