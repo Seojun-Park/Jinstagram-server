@@ -17,6 +17,17 @@ type Message {
   updatedAt: String
 }
 
+type GetFullPostResponse {
+  ok: Boolean!
+  err: String
+  post: [Post]
+}
+
+type Query {
+  GetFullPost(page: Int!): GetFullPostResponse!
+  users: [User]
+}
+
 type Comment {
   id: Int!
   text: String!
@@ -60,16 +71,22 @@ type Post {
   updatedAt: String
 }
 
+type UploadPostResponse {
+  ok: Boolean!
+  err: String
+}
+
+type Mutation {
+  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!
+  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
+  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
+  RequestCode(email: String!): RequestCodeResponse!
+}
+
 type ConfirmSecretResponse {
   ok: Boolean!
   err: String
   token: String
-}
-
-type Mutation {
-  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
-  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
-  RequestCode(email: String!): RequestCodeResponse!
 }
 
 type CreateAccountResponse {
@@ -102,8 +119,4 @@ type User {
   messages: [Message]
   createdAt: String
   updatedAt: String
-}
-
-type Query {
-  users: [User]
 }

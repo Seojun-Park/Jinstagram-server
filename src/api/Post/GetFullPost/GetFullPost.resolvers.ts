@@ -1,0 +1,50 @@
+import Post from "../../../entities/Post";
+import { Resolvers } from "../../../types/resolvers";
+import {
+  GetFullPostQueryArgs,
+  GetFullPostResponse
+} from "../../../types/graph";
+
+const resolvers: Resolvers = {
+  Query: {
+    GetFullPost: async (
+      _,
+      args: GetFullPostQueryArgs,
+      { isAuthenticated, request }
+    ): Promise<GetFullPostResponse> => {
+      isAuthenticated(request);
+      console.log(request.user);
+      const { page } = args;
+      try {
+        const post = await Post.find({
+          take: page * 5,
+          order: {
+            updatedAt: "DESC"
+          },
+          relations: ["user", "likes", "comments"]
+        });
+        if (post) {
+          return {
+            ok: true,
+            err: null,
+            post
+          };
+        } else {
+          return {
+            ok: false,
+            err: "You don't have any feed to be shown",
+            post: null
+          };
+        }
+      } catch (err) {
+        return {
+          ok: false,
+          err: err.message,
+          post: null
+        };
+      }
+    }
+  }
+};
+
+export default resolvers;

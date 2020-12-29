@@ -4,6 +4,7 @@ import helmet from "helmet";
 import { GraphQLServer, PubSub } from "graphql-yoga";
 import schema from "./schema";
 import { authenticateJwt } from "./passport";
+import { isAuthenticated } from "./utils/auth";
 
 class App {
   public app: GraphQLServer;
@@ -13,14 +14,13 @@ class App {
     this.pubSub.ee.setMaxListeners(99);
     this.app = new GraphQLServer({
       schema,
-      context: (req) => {
-        const { connection: { context = null } = {} } = req;
+      context: ({ request }) => {
         return {
-          req: req.request,
-          pubSub: this.pubSub,
-          context
+          request,
+          isAuthenticated
         };
       }
+      // context: ({ request }) => ({ request, isAuthenticated })
     });
     this.middlewares();
   }

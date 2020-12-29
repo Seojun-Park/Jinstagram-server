@@ -1,0 +1,9 @@
+type GetFullPostResponse {
+  ok: Boolean!
+  err: String
+  post: [Post]
+}
+
+type Query {
+  GetFullPost(page:Int!): GetFullPostResponse!
+}
