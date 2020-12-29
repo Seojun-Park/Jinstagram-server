@@ -17,6 +17,7 @@ const resolvers: Resolvers = {
       try {
         if (user?.loginSecret === code) {
           user.loginSecret = "";
+          user.save();
           const token = generateToken(user.id);
           return {
             ok: true,
