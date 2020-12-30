@@ -19,7 +19,7 @@ const resolvers: Resolvers = {
       const { text, chatId } = args;
       try {
         const chat = await Chat.findOne({ id: chatId });
-        if (chat && chat.participants) {
+        if (chat && chat.to) {
           const message = await Message.create({
             text,
             chat,
