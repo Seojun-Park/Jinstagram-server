@@ -4,7 +4,7 @@ type CreateChatResponse {
 }
 
 type Mutation {
-  CreateChat(fromId: Int!, toId: Int!): CreateChatResponse!
+  CreateChat(username: String!): CreateChatResponse!
   SendMessage(text: String!, chatId: Int!): SendMessageResponse!
   AddComment(text: String!, postId: Int!): AddCommentResponse!
   ToggleLike(postId: Int!): ToggleLikeResponse!
@@ -29,7 +29,7 @@ type SendMessageResponse {
 type Chat {
   id: Int!
   messages: [Message]
-  participants: [User!]!
+  to: User!
   createdAt: String
   updatedAt: String
 }
