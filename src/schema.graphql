@@ -1,5 +1,23 @@
 type Subscription {
-  MessageSubscrtiption: Message
+  MessageSubscription: Message
+}
+
+type SendMessageResponse {
+  ok: Boolean!
+  err: String
+  message: Message
+}
+
+type Mutation {
+  SendMessage(text: String!, chatId: Int!): SendMessageResponse!
+  AddComment(text: String!, postId: Int!): AddCommentResponse!
+  ToggleLike(postId: Int!): ToggleLikeResponse!
+  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!
+  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
+  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
+  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!
+  RequestCode(email: String!): RequestCodeResponse!
+  ToggleFollowing(username: String!): ToggleFollowingResponse!
 }
 
 type Chat {
@@ -24,17 +42,6 @@ type Message {
 type AddCommentResponse {
   ok: Boolean!
   err: String
-}
-
-type Mutation {
-  AddComment(text: String!, postId: Int!): AddCommentResponse!
-  ToggleLike(postId: Int!): ToggleLikeResponse!
-  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!
-  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
-  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
-  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!
-  RequestCode(email: String!): RequestCodeResponse!
-  ToggleFollowing(username: String!): ToggleFollowingResponse!
 }
 
 type GetFollowedPostResponse {

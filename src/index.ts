@@ -3,6 +3,7 @@ import { Options } from "graphql-yoga";
 import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import app from "./app";
+import decodeJWT from "./utils/decodeJWT";
 const PLAYGROUND_ENDPOINT: string = "/playground";
 const GRAPHQL_ENDPOINT: string = "/graphql";
 const SUBSCRIPTION_ENDPOINT: string = "/subscription";
@@ -15,7 +16,18 @@ const appOption: Options = {
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParmas) => {
-      console.log("connect");
+      const token = connectionParmas["Authorization"].split(" ")[1];
+      if (token) {
+        const user = decodeJWT(token);
+        if (user) {
+          return {
+            currentUser: user
+          };
+        }
+        throw new Error("No user found with this token");
+      } else {
+        throw new Error("No token, Can't subscribe");
+      }
     }
   }
 };
