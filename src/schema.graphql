@@ -1,3 +1,7 @@
+type Subscription {
+  MessageSubscrtiption: Message
+}
+
 type Chat {
   id: Int!
   messages: [Message]
