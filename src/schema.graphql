@@ -1,14 +1,10 @@
-type Subscription {
-  MessageSubscription: Message
-}
-
-type SendMessageResponse {
+type CreateChatResponse {
   ok: Boolean!
   err: String
-  message: Message
 }
 
 type Mutation {
+  CreateChat(fromId: Int!, toId: Int!): CreateChatResponse!
   SendMessage(text: String!, chatId: Int!): SendMessageResponse!
   AddComment(text: String!, postId: Int!): AddCommentResponse!
   ToggleLike(postId: Int!): ToggleLikeResponse!
@@ -18,6 +14,16 @@ type Mutation {
   EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!
   RequestCode(email: String!): RequestCodeResponse!
   ToggleFollowing(username: String!): ToggleFollowingResponse!
+}
+
+type Subscription {
+  MessageSubscription: Message
+}
+
+type SendMessageResponse {
+  ok: Boolean!
+  err: String
+  message: Message
 }
 
 type Chat {

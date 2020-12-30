@@ -1,4 +1,4 @@
-export const typeDefs = ["type Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  err: String\n  message: Message\n}\n\ntype Mutation {\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  AddComment(text: String!, postId: Int!): AddCommentResponse!\n  ToggleLike(postId: Int!): ToggleLikeResponse!\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n  ToggleFollowing(username: String!): ToggleFollowingResponse!\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User!]!\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype AddCommentResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype GetFollowedPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Query {\n  GetFollowedPost(page: Int!): GetFollowedPostResponse!\n  GetFullPost(page: Int!): GetFullPostResponse!\n  Me: MeResponse!\n  users: [User]\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleLikeResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype MeResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chats: [Chat]\n  messages: [Message]\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleFollowingResponse {\n  ok: Boolean!\n  err: String\n}\n"];
+export const typeDefs = ["type CreateChatResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype Mutation {\n  CreateChat(fromId: Int!, toId: Int!): CreateChatResponse!\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  AddComment(text: String!, postId: Int!): AddCommentResponse!\n  ToggleLike(postId: Int!): ToggleLikeResponse!\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n  ToggleFollowing(username: String!): ToggleFollowingResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  err: String\n  message: Message\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  participants: [User!]!\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype AddCommentResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype GetFollowedPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Query {\n  GetFollowedPost(page: Int!): GetFollowedPostResponse!\n  GetFullPost(page: Int!): GetFullPostResponse!\n  Me: MeResponse!\n  users: [User]\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleLikeResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype MeResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chats: [Chat]\n  messages: [Message]\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleFollowingResponse {\n  ok: Boolean!\n  err: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -118,6 +118,7 @@ export interface MeResponse {
 }
 
 export interface Mutation {
+  CreateChat: CreateChatResponse;
   SendMessage: SendMessageResponse;
   AddComment: AddCommentResponse;
   ToggleLike: ToggleLikeResponse;
@@ -127,6 +128,11 @@ export interface Mutation {
   EditUser: EditUserResponse;
   RequestCode: RequestCodeResponse;
   ToggleFollowing: ToggleFollowingResponse;
+}
+
+export interface CreateChatMutationArgs {
+  fromId: number;
+  toId: number;
 }
 
 export interface SendMessageMutationArgs {
@@ -176,6 +182,11 @@ export interface RequestCodeMutationArgs {
 
 export interface ToggleFollowingMutationArgs {
   username: string;
+}
+
+export interface CreateChatResponse {
+  ok: boolean;
+  err: string | null;
 }
 
 export interface SendMessageResponse {
