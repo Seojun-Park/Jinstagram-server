@@ -4,7 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -65,7 +64,7 @@ class User extends BaseEntity {
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @ManyToMany(() => Chat, (chat) => chat.participants)
+  @OneToMany(() => Chat, (chat) => chat.to)
   chats: Chat[];
 
   @OneToMany(() => Message, (message) => message.user)

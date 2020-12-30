@@ -10,16 +10,15 @@ const resolvers: Resolvers = {
   Mutation: {
     CreateChat: async (
       _,
-      args: CreateChatMutationArgs
+      args: CreateChatMutationArgs,
+      { request, isAuthenticated }
     ): Promise<CreateChatResponse> => {
-      const { fromId, toId } = args;
+      isAuthenticated(request);
+      const { toId } = args;
       try {
-        if (fromId && toId) {
-          const from = await User.findOne({ id: fromId });
+        if (toId) {
           const to = await User.findOne({ id: toId });
-          await Chat.create({
-            participants: [from, to]
-          });
+          await Chat.create({ to });
           return {
             ok: true,
             err: null
