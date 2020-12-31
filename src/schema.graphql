@@ -7,6 +7,7 @@ type Mutation {
   CreateChat(username: String!): CreateChatResponse!
   SendMessage(text: String!, chatId: Int!): SendMessageResponse!
   AddComment(text: String!, postId: Int!): AddCommentResponse!
+  DeletePost(postId: Int!): DeletePostResponse!
   ToggleLike(postId: Int!): ToggleLikeResponse!
   UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!
   ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
@@ -46,6 +47,11 @@ type Message {
 }
 
 type AddCommentResponse {
+  ok: Boolean!
+  err: String
+}
+
+type DeletePostResponse {
   ok: Boolean!
   err: String
 }
