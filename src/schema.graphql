@@ -65,6 +65,7 @@ type GetFollowedPostResponse {
 type Query {
   GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
+  GetPost(postId: Int!): GetPostResponse!
   Me: MeResponse!
   users: [User]
 }
@@ -73,6 +74,12 @@ type GetFullPostResponse {
   ok: Boolean!
   err: String
   post: [Post]
+}
+
+type GetPostResponse {
+  ok: Boolean!
+  err: String
+  post: Post
 }
 
 type Comment {
