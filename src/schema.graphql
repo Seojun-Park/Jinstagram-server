@@ -67,6 +67,7 @@ type Query {
   GetFullPost(page: Int!): GetFullPostResponse!
   GetPost(postId: Int!): GetPostResponse!
   Me: MeResponse!
+  SearchUser(term: String!): SearchUserResponse!
   SeeUser(userId: Int!): SeeUserResponse!
   users: [User]
 }
@@ -162,6 +163,12 @@ type RequestCodeResponse {
   ok: Boolean!
   err: String
   code: String
+}
+
+type SearchUserResponse {
+  ok: Boolean!
+  err: String
+  users: [User]
 }
 
 type SeeUserResponse {

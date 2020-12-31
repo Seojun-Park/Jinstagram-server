@@ -1,0 +1,8 @@
+type SearchUserResponse {
+  ok: Boolean!
+  err: String
+  users: [User]
+}
+type Query {
+  SearchUser(term: String!): SearchUserResponse!
+}
