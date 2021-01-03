@@ -44,6 +44,12 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: true })
   loginSecret: string;
 
+  @Column({ type: "text", nullable: true })
+  fbId: string;
+
+  @Column({ type: "text", nullable: true })
+  googleId: string;
+
   @Column({ type: "boolean", default: false })
   isFollowing: boolean;
 
@@ -75,6 +81,10 @@ class User extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: string;
+
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
 }
 
 export default User;

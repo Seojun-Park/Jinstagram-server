@@ -10,6 +10,8 @@ type User {
   following: [User]
   follower: [User]
   isFollowing: Boolean
+  fbId: String
+  googleId: String
   posts: [Post]
   likes: [Like]
   comments: [Comment]

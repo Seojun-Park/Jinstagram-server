@@ -13,6 +13,8 @@ type Mutation {
   ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!
   CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!
   EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!
+  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!
+  GoogleConnect(googleId: String!, firstName: String!, lastName: String!, email: String!): GoogleConnectResponse!
   RequestCode(email: String!): RequestCodeResponse!
   ToggleFollowing(username: String!): ToggleFollowingResponse!
 }
@@ -153,6 +155,18 @@ type EditUserResponse {
   err: String
 }
 
+type FacebookConnectResponse {
+  ok: Boolean!
+  err: String
+  token: String
+}
+
+type GoogleConnectResponse {
+  ok: Boolean!
+  err: String
+  token: String
+}
+
 type MeResponse {
   ok: Boolean!
   err: String
@@ -189,6 +203,8 @@ type User {
   following: [User]
   follower: [User]
   isFollowing: Boolean
+  fbId: String
+  googleId: String
   posts: [Post]
   likes: [Like]
   comments: [Comment]
