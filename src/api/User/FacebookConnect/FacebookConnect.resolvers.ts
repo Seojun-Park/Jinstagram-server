@@ -30,6 +30,7 @@ const resolvers: Resolvers = {
                 firstName,
                 lastName,
                 email,
+                fbId,
                 username: `${firstName} ${lastName}`,
                 profilePhoto
               }).save();
@@ -37,6 +38,7 @@ const resolvers: Resolvers = {
               newUser = await User.create({
                 firstName,
                 lastName,
+                fbId,
                 email,
                 username: `${firstName} ${lastName}`,
                 profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`

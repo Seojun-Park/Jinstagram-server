@@ -15,11 +15,12 @@ const appOption: Options = {
   endpoint: GRAPHQL_ENDPOINT,
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
-    onConnect: async (connectionParmas) => {
-      const token = connectionParmas["Authorization"].split(" ")[1];
+    onConnect: async (connectionParams) => {
+      const token = connectionParams["Bearer"];
       if (token) {
-        const user = decodeJWT(token);
+        const user = await decodeJWT(token);
         if (user) {
+          // console.log(user);
           return {
             currentUser: user
           };

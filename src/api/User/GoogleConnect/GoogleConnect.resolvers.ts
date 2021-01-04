@@ -27,6 +27,7 @@ const resolvers: Resolvers = {
           firstName,
           lastName,
           email,
+          googleId,
           username: `${firstName} ${lastName}`
         }).save();
         if (newUser) {
