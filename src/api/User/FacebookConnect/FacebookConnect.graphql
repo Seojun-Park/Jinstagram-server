@@ -10,5 +10,6 @@ type Mutation {
     lastName: String!
     email: String!
     fbId: String!
+    profilePhoto: String
   ): FacebookConnectResponse!
 }

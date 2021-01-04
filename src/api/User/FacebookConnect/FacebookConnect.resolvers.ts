@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
       _,
       args: FacebookConnectMutationArgs
     ): Promise<FacebookConnectResponse> => {
-      const { fbId, firstName, lastName, email } = args;
+      const { fbId, firstName, lastName, email, profilePhoto } = args;
       try {
         const existingUser = await User.findOne({ fbId });
         if (existingUser) {
@@ -24,13 +24,25 @@ const resolvers: Resolvers = {
           };
         } else {
           try {
-            const newUser = await User.create({
-              firstName,
-              lastName,
-              email,
-              username: `${firstName} ${lastName}`,
-              profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`
-            }).save();
+            let newUser;
+            if (profilePhoto) {
+              newUser = await User.create({
+                firstName,
+                lastName,
+                email,
+                username: `${firstName} ${lastName}`,
+                profilePhoto
+              }).save();
+            } else {
+              newUser = await User.create({
+                firstName,
+                lastName,
+                email,
+                username: `${firstName} ${lastName}`,
+                profilePhoto: `http://graph.facebook.com/${fbId}/picture?type=square`
+              }).save();
+            }
+
             const token = generateToken(newUser.id);
             return {
               ok: true,
