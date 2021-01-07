@@ -15,14 +15,14 @@ const resolvers: Resolvers = {
     ): Promise<GetFollowedPostResponse> => {
       isAuthenticated(request);
       const { page } = args;
-      console.log(page);
       const following = await User.find({
         where: {
           isFollowing: true
         },
         order: {
           updatedAt: "DESC"
-        }
+        },
+        relations: ["posts"]
       });
       try {
         if (following.length !== 0) {
@@ -36,7 +36,7 @@ const resolvers: Resolvers = {
             order: {
               updatedAt: "DESC"
             },
-            relations: ["user", "likes", "comments"]
+            relations: ["user", "likes", "comments", "images"]
           });
           return {
             ok: true,
