@@ -12,7 +12,10 @@ const resolvers: Resolvers = {
       isAuthenticated(request);
       const { postId } = args;
       try {
-        const post = await Post.findOne({ id: postId });
+        const post = await Post.findOne(
+          { id: postId },
+          { relations: ["images"] }
+        );
         if (post) {
           return {
             ok: true,

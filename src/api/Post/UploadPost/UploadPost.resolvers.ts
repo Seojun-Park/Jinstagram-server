@@ -24,22 +24,25 @@ const resolvers: Resolvers = {
             location,
             caption,
             user
-          });
+          }).save();
         } else {
           post = await Post.create({
             location: "",
             caption: "",
             user
-          });
+          }).save();
         }
+        const createdPost = await Post.findOne(
+          { id: post.id },
+          { relations: ["images"] }
+        );
         if (images?.length !== 0) {
-          images?.map(
-            async (image) =>
-              await Image.create({
-                post,
-                url: image
-              })
-          );
+          images?.map(async (image) => {
+            await Image.create({
+              post: createdPost,
+              url: image
+            }).save();
+          });
         }
         return {
           ok: true,
