@@ -11,7 +11,10 @@ const resolvers: Resolvers = {
     ): Promise<SeeUserResponse> => {
       const { userId } = args;
       try {
-        const user = await User.findOne({ id: userId });
+        const user = await User.findOne(
+          { id: userId },
+          { relations: ["posts"] }
+        );
         if (user) {
           return {
             ok: true,
