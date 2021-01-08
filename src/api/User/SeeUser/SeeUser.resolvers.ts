@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
       try {
         const user = await User.findOne(
           { id: userId },
-          { relations: ["posts"] }
+          { relations: ["posts, comments, likes"] }
         );
         if (user) {
           return {

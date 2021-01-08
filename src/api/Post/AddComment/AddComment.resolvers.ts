@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
             text,
             user,
             post
-          });
+          }).save();
           return {
             ok: true,
             err: null

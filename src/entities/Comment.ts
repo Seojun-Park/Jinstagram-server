@@ -19,6 +19,7 @@ class Comment extends BaseEntity {
   text: string;
 
   @ManyToOne(() => User, (user) => user.comments)
+  @JoinColumn()
   user: User;
 
   @Column({ nullable: true })
