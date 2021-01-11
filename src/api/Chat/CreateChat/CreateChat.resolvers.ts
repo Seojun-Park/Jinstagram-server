@@ -14,11 +14,12 @@ const resolvers: Resolvers = {
       { request, isAuthenticated }
     ): Promise<CreateChatResponse> => {
       isAuthenticated(request);
-      const { username } = args;
+      const { fromId, toId } = args;
       try {
-        if (username) {
-          const to = await User.findOne({ username });
-          await Chat.create({ to });
+        if (fromId && toId) {
+          const to = await User.findOne({ id: toId });
+          const from = await User.findOne({ id: fromId });
+          await Chat.create({ from, to });
           return {
             ok: true,
             err: null

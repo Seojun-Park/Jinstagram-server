@@ -15,8 +15,8 @@ type User {
   posts: [Post]
   likes: [Like]
   comments: [Comment]
-  chats: [Chat]
-  messages: [Message]
+  chatFrom: Chat
+  chatTo: Chat
   createdAt: String
   updatedAt: String
 }

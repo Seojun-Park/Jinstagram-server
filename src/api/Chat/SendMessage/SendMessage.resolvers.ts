@@ -1,4 +1,3 @@
-import User from "../../../entities/User";
 import { Resolvers } from "../../../types/resolvers";
 import {
   SendMessageMutationArgs,
@@ -15,15 +14,13 @@ const resolvers: Resolvers = {
       { request, pubSub, isAuthenticated }
     ): Promise<SendMessageResponse> => {
       isAuthenticated(request);
-      const user: User = request.user;
       const { text, chatId } = args;
       try {
         const chat = await Chat.findOne({ id: chatId });
-        if (chat && chat.to) {
+        if (chat && chat.to && chat.from) {
           const message = await Message.create({
             text,
-            chat,
-            user
+            chat
           }).save();
           pubSub.publish("newChatMessage", {
             MessageSubscription: message

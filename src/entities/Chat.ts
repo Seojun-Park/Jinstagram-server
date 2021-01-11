@@ -20,8 +20,11 @@ class Chat extends BaseEntity {
   })
   messages: Message[];
 
-  @ManyToOne((type) => User, (user) => user.chats)
+  @ManyToOne((type) => User, (user) => user.chatTo)
   to: User;
+
+  @ManyToOne((type) => User, (user) => user.chatFrom)
+  from: User;
 
   @CreateDateColumn()
   createdAt: string;

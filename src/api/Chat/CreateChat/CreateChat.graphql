@@ -4,5 +4,5 @@ type CreateChatResponse {
 }
 
 type Mutation {
-  CreateChat(username: String!): CreateChatResponse!
+  CreateChat(fromId: Int!, toId: Int!): CreateChatResponse!
 }
