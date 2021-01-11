@@ -16,7 +16,7 @@ class Image extends BaseEntity {
   @Column({ type: "text" })
   url: string;
 
-  @ManyToOne(() => Post, (post) => post.images)
+  @ManyToOne((type) => Post, (post) => post.images)
   post: Post;
 
   @Column({ nullable: true })

@@ -24,16 +24,16 @@ class Post extends BaseEntity {
   @Column({ type: "text" })
   caption: string;
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @ManyToOne((type) => User, (user) => user.posts)
   user: User;
 
-  @OneToMany(() => Image, (image) => image.post)
+  @OneToMany((type) => Image, (image) => image.post)
   images: Image[];
 
-  @OneToMany(() => Like, (like) => like.post)
+  @OneToMany((type) => Like, (like) => like.post)
   likes: Like[];
 
-  @OneToMany(() => Comment, (comment) => comment.post)
+  @OneToMany((type) => Comment, (comment) => comment.post)
   comments: Comment[];
 
   @Column({ type: "boolean", default: false })

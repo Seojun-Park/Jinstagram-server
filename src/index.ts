@@ -20,7 +20,6 @@ const appOption: Options = {
       if (token) {
         const user = await decodeJWT(token);
         if (user) {
-          // console.log(user);
           return {
             currentUser: user
           };

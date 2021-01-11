@@ -14,13 +14,13 @@ import User from "./User";
 class Chat extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @OneToMany(() => Message, (message) => message.chat, {
+  @OneToMany((type) => Message, (message) => message.chat, {
     nullable: true,
     onDelete: "CASCADE"
   })
   messages: Message[];
 
-  @ManyToOne(() => User, (user) => user.chats)
+  @ManyToOne((type) => User, (user) => user.chats)
   to: User;
 
   @CreateDateColumn()

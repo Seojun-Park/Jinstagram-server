@@ -5,5 +5,5 @@ type SeeUserResponse {
 }
 
 type Query {
-  SeeUser(userId: Int!): SeeUserResponse!
+  SeeUser(username: String!): SeeUserResponse!
 }

@@ -71,7 +71,7 @@ type Query {
   GetPost(postId: Int!): GetPostResponse!
   Me: MeResponse!
   SearchUser(term: String!): SearchUserResponse!
-  SeeUser(userId: Int!): SeeUserResponse!
+  SeeUser(username: String!): SeeUserResponse!
   users: [User]
 }
 

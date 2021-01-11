@@ -53,28 +53,25 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isFollowing: boolean;
 
-  @OneToMany(() => User, (user) => user.following, { nullable: true })
+  @OneToMany((type) => User, (user) => user.following)
   following: User[];
 
-  @OneToMany(() => User, (user) => user.follower, { nullable: true })
+  @OneToMany((type) => User, (user) => user.follower)
   follower: User[];
 
-  @OneToMany(() => Post, (post) => post.user, {
-    onDelete: "CASCADE",
-    nullable: true
-  })
+  @OneToMany((type) => Post, (post) => post.user, { onDelete: "CASCADE" })
   posts: Post[];
 
-  @OneToMany(() => Like, (like) => like.user, { nullable: true })
+  @OneToMany((type) => Like, (like) => like.user)
   likes: Like[];
 
-  @OneToMany(() => Comment, (comment) => comment.user, { nullable: true })
+  @OneToMany((type) => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @OneToMany(() => Chat, (chat) => chat.to, { nullable: true })
+  @OneToMany((type) => Chat, (chat) => chat.to)
   chats: Chat[];
 
-  @OneToMany(() => Message, (message) => message.user, { nullable: true })
+  @OneToMany((type) => Message, (message) => message.user)
   messages: Message[];
 
   @CreateDateColumn()

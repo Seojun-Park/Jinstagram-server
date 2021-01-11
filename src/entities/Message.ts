@@ -17,13 +17,13 @@ class Message extends BaseEntity {
   @Column({ type: "text" })
   text: string;
 
-  @ManyToOne(() => Chat, (chat) => chat.messages)
+  @ManyToOne((type) => Chat, (chat) => chat.messages)
   chat: Chat;
 
   @Column({ nullable: true })
   chatId: number;
 
-  @ManyToOne(() => User, (user) => user.messages)
+  @ManyToOne((type) => User, (user) => user.messages)
   user: User;
 
   @Column({ nullable: true })

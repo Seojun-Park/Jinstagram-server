@@ -43,7 +43,6 @@ class App {
     const token = req.get("authorization");
     if (token) {
       const user = await decodeJWT(token);
-      console.log(user);
       if (user) {
         req.user = user;
       } else {

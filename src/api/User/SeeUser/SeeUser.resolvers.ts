@@ -9,11 +9,12 @@ const resolvers: Resolvers = {
       args: SeeUserQueryArgs,
       { request, isAuthenticated }
     ): Promise<SeeUserResponse> => {
-      const { userId } = args;
+      isAuthenticated(request);
+      const { username } = args;
       try {
         const user = await User.findOne(
-          { id: userId },
-          { relations: ["posts, comments, likes"] }
+          { username },
+          { relations: ["posts, likes, comments"] }
         );
         if (user) {
           return {

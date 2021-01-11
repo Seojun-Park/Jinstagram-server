@@ -15,13 +15,13 @@ class Like extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.likes)
+  @ManyToOne((type) => User, (user) => user.likes)
   user: User;
 
   @Column({ nullable: true })
   userId: number;
 
-  @ManyToOne(() => Post, (post) => post.likes)
+  @ManyToOne((type) => Post, (post) => post.likes)
   post: Post;
 
   @Column({ nullable: true })
