@@ -3,7 +3,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -18,7 +17,6 @@ class Image extends BaseEntity {
   url: string;
 
   @ManyToOne(() => Post, (post) => post.images)
-  @JoinColumn()
   post: Post;
 
   @Column({ nullable: true })

@@ -58,13 +58,14 @@ type DeletePostResponse {
   err: String
 }
 
-type GetFollowedPostResponse {
+type GetCommentResponse {
   ok: Boolean!
   err: String
-  post: [Post]
+  comment: Comment
 }
 
 type Query {
+  GetComment(postId: Int!): GetCommentResponse!
   GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
   GetPost(postId: Int!): GetPostResponse!
@@ -72,6 +73,12 @@ type Query {
   SearchUser(term: String!): SearchUserResponse!
   SeeUser(userId: Int!): SeeUserResponse!
   users: [User]
+}
+
+type GetFollowedPostResponse {
+  ok: Boolean!
+  err: String
+  post: [Post]
 }
 
 type GetFullPostResponse {

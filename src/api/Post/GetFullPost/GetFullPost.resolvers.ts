@@ -25,6 +25,7 @@ const resolvers: Resolvers = {
           },
           relations: ["user", "likes", "comments", "images"]
         });
+        console.log(post);
         if (post) {
           return {
             ok: true,
