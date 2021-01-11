@@ -19,7 +19,7 @@ const resolvers: Resolvers = {
       const user: User = request.user;
       try {
         const chat = await Chat.findOne({ id: chatId });
-        if (chat && chat.to && chat.from) {
+        if (chat) {
           const message = await Message.create({
             text,
             chat,
