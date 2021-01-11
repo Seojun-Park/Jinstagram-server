@@ -27,13 +27,15 @@ class Post extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.posts)
   user: User;
 
-  @OneToMany((type) => Image, (image) => image.post)
+  @OneToMany((type) => Image, (image) => image.post, { onDelete: "CASCADE" })
   images: Image[];
 
-  @OneToMany((type) => Like, (like) => like.post)
+  @OneToMany((type) => Like, (like) => like.post, { onDelete: "CASCADE" })
   likes: Like[];
 
-  @OneToMany((type) => Comment, (comment) => comment.post)
+  @OneToMany((type) => Comment, (comment) => comment.post, {
+    onDelete: "CASCADE"
+  })
   comments: Comment[];
 
   @Column({ type: "boolean", default: false })

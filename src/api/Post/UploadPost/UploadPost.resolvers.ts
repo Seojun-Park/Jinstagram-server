@@ -32,6 +32,14 @@ const resolvers: Resolvers = {
             user
           }).save();
         }
+        // await User.update(
+        //   {
+        //     id: user.id
+        //   },
+        //   {
+        //     posts: [{ ...post }]
+        //   }
+        // );
         const createdPost = await Post.findOne(
           { id: post.id },
           { relations: ["images"] }
