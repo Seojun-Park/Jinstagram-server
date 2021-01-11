@@ -11,6 +11,7 @@ import {
 import Chat from "./Chat";
 import Comment from "./Comment";
 import Like from "./Like";
+import Message from "./Message";
 import Post from "./Post";
 
 @Entity()
@@ -69,11 +70,18 @@ class User extends BaseEntity {
   })
   comments: Comment[];
 
-  @OneToMany((type) => Chat, (chat) => chat.from)
+  @OneToMany((type) => Chat, (chat) => chat.from, {
+    onDelete: "CASCADE"
+  })
   chatFrom: Chat[];
 
-  @OneToMany((type) => Chat, (chat) => chat.to)
+  @OneToMany((type) => Chat, (chat) => chat.to, {
+    onDelete: "CASCADE"
+  })
   chatTo: Chat[];
+
+  @OneToMany((type) => Message, (message) => message.user)
+  messages: Message[];
 
   @CreateDateColumn()
   createdAt: string;

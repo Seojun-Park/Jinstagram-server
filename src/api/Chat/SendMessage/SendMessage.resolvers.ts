@@ -1,26 +1,29 @@
-import { Resolvers } from "../../../types/resolvers";
+import Chat from "../../../entities/Chat";
+import Message from "../../../entities/Message";
+import User from "../../../entities/User";
 import {
   SendMessageMutationArgs,
   SendMessageResponse
 } from "../../../types/graph";
-import Chat from "../../../entities/Chat";
-import Message from "../../../entities/Message";
+import { Resolvers } from "../../../types/resolvers";
 
 const resolvers: Resolvers = {
   Mutation: {
     SendMessage: async (
       _,
       args: SendMessageMutationArgs,
-      { request, pubSub, isAuthenticated }
+      { request, isAuthenticated, pubSub }
     ): Promise<SendMessageResponse> => {
       isAuthenticated(request);
       const { text, chatId } = args;
+      const user: User = request.user;
       try {
         const chat = await Chat.findOne({ id: chatId });
         if (chat && chat.to && chat.from) {
           const message = await Message.create({
             text,
-            chat
+            chat,
+            user
           }).save();
           pubSub.publish("newChatMessage", {
             MessageSubscription: message
@@ -33,7 +36,7 @@ const resolvers: Resolvers = {
         } else {
           return {
             ok: false,
-            err: "No Chat",
+            err: "no chat",
             message: null
           };
         }

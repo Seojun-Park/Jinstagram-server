@@ -16,7 +16,6 @@ const resolvers: Resolvers = {
           { username },
           { relations: ["posts, likes, comments"] }
         );
-        console.log(user);
         if (user) {
           return {
             ok: true,

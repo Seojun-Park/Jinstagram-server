@@ -4,7 +4,7 @@ type CreateChatResponse {
 }
 
 type Mutation {
-  CreateChat(fromId: Int!, toId: Int!): CreateChatResponse!
+  CreateChat(toId: Int!): CreateChatResponse!
   SendMessage(text: String!, chatId: Int!): SendMessageResponse!
   AddComment(text: String!, postId: Int!): AddCommentResponse!
   DeletePost(postId: Int!): DeletePostResponse!
@@ -32,8 +32,10 @@ type SendMessageResponse {
 type Chat {
   id: Int!
   messages: [Message]
-  from: User!
-  to: User!
+  from: User
+  fromId: Int
+  to: User
+  toId: Int
   createdAt: String
   updatedAt: String
 }
@@ -43,6 +45,8 @@ type Message {
   text: String!
   chat: Chat!
   chatId: Int
+  user: User!
+  userId: Int
   createdAt: String
   updatedAt: String
 }
