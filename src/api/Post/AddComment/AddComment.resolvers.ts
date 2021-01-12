@@ -18,7 +18,9 @@ const resolvers: Resolvers = {
       const user: User = request.user;
       const { text, postId } = args;
       try {
-        const post = await Post.findOne({ id: postId });
+        const post = await Post.findOne(
+          { id: postId }
+        );
         if (post) {
           await Comment.create({
             text,

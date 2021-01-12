@@ -20,10 +20,8 @@ const resolvers: Resolvers = {
         const post = await Post.find({
           take: page * 5,
           where: [{ user: { isFollowing: true } }, { user: { id: user.id } }],
-          order: {
-            updatedAt: "DESC"
-          },
-          relations: ["user", "likes", "comments", "images"]
+          order: { updatedAt: "DESC" },
+          relations: ["user", "likes", "comments", "comments.user", "images"]
         });
         console.log(post);
         if (post) {
