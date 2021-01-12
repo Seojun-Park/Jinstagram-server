@@ -15,12 +15,13 @@ const resolvers: Resolvers = {
       isAuthenticated(request);
       const { username } = args;
       try {
-        const user = await User.findOne({
+        const targetUser = await User.findOne({
           username
         });
-        if (user) {
-          user.isFollowing = user.isFollowing === false ? true : false;
-          user.save();
+        if (targetUser) {
+          targetUser.isFollowing =
+            targetUser.isFollowing === false ? true : false;
+          targetUser.save();
           return {
             ok: true,
             err: null

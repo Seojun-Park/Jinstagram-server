@@ -8,11 +8,17 @@ const resolvers: Resolvers = {
       isAuthenticated(request);
       const user: User = request.user;
       try {
-        if (user) {
+        const fullUser = await User.findOne(
+          {
+            id: user.id
+          },
+          { relations: ["posts"] }
+        );
+        if (fullUser) {
           return {
             ok: true,
             err: null,
-            user
+            user: fullUser
           };
         } else {
           return {
