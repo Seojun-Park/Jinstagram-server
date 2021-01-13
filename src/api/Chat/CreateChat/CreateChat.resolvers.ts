@@ -20,21 +20,24 @@ const resolvers: Resolvers = {
         if (user && toId) {
           const to = await User.findOne({ id: toId });
           const from = await User.findOne({ id: user.id });
-          await Chat.create({ from, to });
+          const chat = await Chat.create({ from, to }).save();
           return {
             ok: true,
-            err: null
+            err: null,
+            chat
           };
         } else {
           return {
             ok: false,
-            err: "No user found"
+            err: "No user found",
+            chat: null
           };
         }
       } catch (err) {
         return {
           ok: false,
-          err: err.message
+          err: err.message,
+          chat: null
         };
       }
     }

@@ -1,6 +1,7 @@
 type CreateChatResponse {
   ok: Boolean!
   err: String
+  chat: Chat
 }
 
 type Mutation {
