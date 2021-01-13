@@ -1,0 +1,9 @@
+type GetChatRoomResponse{
+    ok:Boolean!
+    err:String
+    chat:Chat
+}
+
+type Query {
+    GetChatRoom(chatId: Int!):GetChatRoomResponse!
+}

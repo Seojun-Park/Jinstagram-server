@@ -28,6 +28,7 @@ type GetChatResponse {
 
 type Query {
   GetChat: GetChatResponse!
+  GetChatRoom(chatId: Int!): GetChatRoomResponse!
   GetComment(postId: Int!): GetCommentResponse!
   GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
@@ -36,6 +37,12 @@ type Query {
   SearchUser(term: String!): SearchUserResponse!
   SeeUser(username: String!): SeeUserResponse!
   users: [User]
+}
+
+type GetChatRoomResponse {
+  ok: Boolean!
+  err: String
+  chat: Chat
 }
 
 type Subscription {
