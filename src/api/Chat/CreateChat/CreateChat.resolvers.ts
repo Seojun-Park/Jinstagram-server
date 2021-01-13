@@ -17,21 +17,33 @@ const resolvers: Resolvers = {
       const user: User = request.user;
       const { toId } = args;
       try {
-        if (user && toId) {
-          const to = await User.findOne({ id: toId });
-          const from = await User.findOne({ id: user.id });
-          const chat = await Chat.create({ from, to }).save();
+        const existedChat = await Chat.findOne({
+          where: [{ fromId: user.id }, { toId }]
+        });
+        console.log(existedChat);
+        if (existedChat) {
           return {
             ok: true,
             err: null,
-            chat
+            chat: existedChat
           };
         } else {
-          return {
-            ok: false,
-            err: "No user found",
-            chat: null
-          };
+          if (user && toId) {
+            const to = await User.findOne({ id: toId });
+            const from = await User.findOne({ id: user.id });
+            const chat = await Chat.create({ from, to }).save();
+            return {
+              ok: true,
+              err: null,
+              chat
+            };
+          } else {
+            return {
+              ok: false,
+              err: "No user found",
+              chat: null
+            };
+          }
         }
       } catch (err) {
         return {

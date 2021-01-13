@@ -14,7 +14,8 @@ const resolvers: Resolvers = {
       const user: User = request.user;
       try {
         const chat = await Chat.find({
-          where: [{ fromId: user.id }, { toId: user.id }]
+          where: [{ fromId: user.id }, { toId: user.id }],
+          relations: ["from", "to", "messages"]
         });
         if (chat) {
           return {
