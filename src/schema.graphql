@@ -19,6 +19,24 @@ type Mutation {
   ToggleFollowing(username: String!): ToggleFollowingResponse!
 }
 
+type GetChatResponse {
+  ok: Boolean!
+  err: String
+  chat: [Chat]
+}
+
+type Query {
+  GetChat: GetChatResponse!
+  GetComment(postId: Int!): GetCommentResponse!
+  GetFollowedPost(page: Int!): GetFollowedPostResponse!
+  GetFullPost(page: Int!): GetFullPostResponse!
+  GetPost(postId: Int!): GetPostResponse!
+  Me: MeResponse!
+  SearchUser(term: String!): SearchUserResponse!
+  SeeUser(username: String!): SeeUserResponse!
+  users: [User]
+}
+
 type Subscription {
   MessageSubscription: Message
 }
@@ -65,17 +83,6 @@ type GetCommentResponse {
   ok: Boolean!
   err: String
   comment: Comment
-}
-
-type Query {
-  GetComment(postId: Int!): GetCommentResponse!
-  GetFollowedPost(page: Int!): GetFollowedPostResponse!
-  GetFullPost(page: Int!): GetFullPostResponse!
-  GetPost(postId: Int!): GetPostResponse!
-  Me: MeResponse!
-  SearchUser(term: String!): SearchUserResponse!
-  SeeUser(username: String!): SeeUserResponse!
-  users: [User]
 }
 
 type GetFollowedPostResponse {

@@ -1,7 +1,8 @@
-export const typeDefs = ["type CreateChatResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype Mutation {\n  CreateChat(toId: Int!): CreateChatResponse!\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  AddComment(text: String!, postId: Int!): AddCommentResponse!\n  DeletePost(postId: Int!): DeletePostResponse!\n  ToggleLike(postId: Int!): ToggleLikeResponse!\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!, profilePhoto: String): FacebookConnectResponse!\n  GoogleConnect(googleId: String!, firstName: String!, lastName: String!, email: String!): GoogleConnectResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n  ToggleFollowing(username: String!): ToggleFollowingResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  err: String\n  message: Message\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  from: User\n  fromId: Int\n  to: User\n  toId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype AddCommentResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype DeletePostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype GetCommentResponse {\n  ok: Boolean!\n  err: String\n  comment: Comment\n}\n\ntype Query {\n  GetComment(postId: Int!): GetCommentResponse!\n  GetFollowedPost(page: Int!): GetFollowedPostResponse!\n  GetFullPost(page: Int!): GetFullPostResponse!\n  GetPost(postId: Int!): GetPostResponse!\n  Me: MeResponse!\n  SearchUser(term: String!): SearchUserResponse!\n  SeeUser(username: String!): SeeUserResponse!\n  users: [User]\n}\n\ntype GetFollowedPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype GetPostResponse {\n  ok: Boolean!\n  err: String\n  post: Post\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleLikeResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype MeResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype SearchUserResponse {\n  ok: Boolean!\n  err: String\n  users: [User]\n}\n\ntype SeeUserResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  fbId: String\n  googleId: String\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chatFrom: [Chat]\n  chatTo: [Chat]\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleFollowingResponse {\n  ok: Boolean!\n  err: String\n}\n"];
+export const typeDefs = ["type CreateChatResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype Mutation {\n  CreateChat(toId: Int!): CreateChatResponse!\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  AddComment(text: String!, postId: Int!): AddCommentResponse!\n  DeletePost(postId: Int!): DeletePostResponse!\n  ToggleLike(postId: Int!): ToggleLikeResponse!\n  UploadPost(location: String, caption: String, images: [String]): UploadPostResponse!\n  ConfirmSecret(code: String!, email: String!): ConfirmSecretResponse!\n  CreateAccount(username: String!, email: String!, firstName: String!, lastName: String!, intro: String): CreateAccountResponse!\n  EditUser(profilePhoto: String, intro: String, username: String, firstName: String, lastName: String): EditUserResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!, profilePhoto: String): FacebookConnectResponse!\n  GoogleConnect(googleId: String!, firstName: String!, lastName: String!, email: String!): GoogleConnectResponse!\n  RequestCode(email: String!): RequestCodeResponse!\n  ToggleFollowing(username: String!): ToggleFollowingResponse!\n}\n\ntype GetChatResponse {\n  ok: Boolean!\n  err: String\n  chat: [Chat]\n}\n\ntype Query {\n  GetChat: GetChatResponse!\n  GetComment(postId: Int!): GetCommentResponse!\n  GetFollowedPost(page: Int!): GetFollowedPostResponse!\n  GetFullPost(page: Int!): GetFullPostResponse!\n  GetPost(postId: Int!): GetPostResponse!\n  Me: MeResponse!\n  SearchUser(term: String!): SearchUserResponse!\n  SeeUser(username: String!): SeeUserResponse!\n  users: [User]\n}\n\ntype Subscription {\n  MessageSubscription: Message\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  err: String\n  message: Message\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  from: User\n  fromId: Int\n  to: User\n  toId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int\n  user: User!\n  userId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype AddCommentResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype DeletePostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype GetCommentResponse {\n  ok: Boolean!\n  err: String\n  comment: Comment\n}\n\ntype GetFollowedPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype GetFullPostResponse {\n  ok: Boolean!\n  err: String\n  post: [Post]\n}\n\ntype GetPostResponse {\n  ok: Boolean!\n  err: String\n  post: Post\n}\n\ntype Comment {\n  id: Int!\n  text: String!\n  user: User!\n  userId: Int\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Image {\n  id: Int!\n  url: String!\n  post: Post!\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Like {\n  id: Int!\n  user: User!\n  post: Post!\n  userId: Int\n  postId: Int\n  createdAt: String\n  updatedAt: String\n}\n\ntype Post {\n  id: Int!\n  location: String\n  caption: String\n  user: User!\n  images: [Image]\n  likes: [Like]\n  comments: [Comment]\n  isLiked: Boolean\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleLikeResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype UploadPostResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype ConfirmSecretResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype CreateAccountResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  err: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  err: String\n  token: String\n}\n\ntype MeResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype RequestCodeResponse {\n  ok: Boolean!\n  err: String\n  code: String\n}\n\ntype SearchUserResponse {\n  ok: Boolean!\n  err: String\n  users: [User]\n}\n\ntype SeeUserResponse {\n  ok: Boolean!\n  err: String\n  user: User\n}\n\ntype User {\n  id: Int!\n  email: String!\n  profilePhoto: String\n  intro: String\n  username: String!\n  firstName: String!\n  lastName: String!\n  loginSecret: String\n  following: [User]\n  follower: [User]\n  isFollowing: Boolean\n  fbId: String\n  googleId: String\n  posts: [Post]\n  likes: [Like]\n  comments: [Comment]\n  chatFrom: [Chat]\n  chatTo: [Chat]\n  createdAt: String\n  updatedAt: String\n}\n\ntype ToggleFollowingResponse {\n  ok: Boolean!\n  err: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
+  GetChat: GetChatResponse;
   GetComment: GetCommentResponse;
   GetFollowedPost: GetFollowedPostResponse;
   GetFullPost: GetFullPostResponse;
@@ -36,19 +37,30 @@ export interface SeeUserQueryArgs {
   username: string;
 }
 
-export interface GetCommentResponse {
+export interface GetChatResponse {
   ok: boolean;
   err: string | null;
-  comment: Comment | null;
+  chat: Array<Chat> | null;
 }
 
-export interface Comment {
+export interface Chat {
+  id: number;
+  messages: Array<Message> | null;
+  from: User | null;
+  fromId: number | null;
+  to: User | null;
+  toId: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface Message {
   id: number;
   text: string;
+  chat: Chat;
+  chatId: number | null;
   user: User;
   userId: number | null;
-  post: Post;
-  postId: number | null;
   createdAt: string | null;
   updatedAt: string | null;
 }
@@ -108,26 +120,21 @@ export interface Like {
   updatedAt: string | null;
 }
 
-export interface Chat {
+export interface Comment {
   id: number;
-  messages: Array<Message> | null;
-  from: User | null;
-  fromId: number | null;
-  to: User | null;
-  toId: number | null;
+  text: string;
+  user: User;
+  userId: number | null;
+  post: Post;
+  postId: number | null;
   createdAt: string | null;
   updatedAt: string | null;
 }
 
-export interface Message {
-  id: number;
-  text: string;
-  chat: Chat;
-  chatId: number | null;
-  user: User;
-  userId: number | null;
-  createdAt: string | null;
-  updatedAt: string | null;
+export interface GetCommentResponse {
+  ok: boolean;
+  err: string | null;
+  comment: Comment | null;
 }
 
 export interface GetFollowedPostResponse {

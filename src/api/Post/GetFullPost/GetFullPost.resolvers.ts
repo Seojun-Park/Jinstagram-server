@@ -23,7 +23,6 @@ const resolvers: Resolvers = {
           order: { updatedAt: "DESC" },
           relations: ["user", "likes", "comments", "comments.user", "images"]
         });
-        console.log(post);
         if (post) {
           return {
             ok: true,
