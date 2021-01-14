@@ -4,9 +4,15 @@ import User from "../entities/User";
 const decodeJWT = async (token: string): Promise<any> => {
   try {
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET || "");
-    const { id } = decoded;
-    const user = await User.findOne({ id });
-    return user;
+    if (decoded && decoded.id) {
+      const { id } = decoded;
+      const user = await User.findOne(
+        { id },
+        { relations: ["posts", "messages", "likes", "comments"] }
+      );
+      return user;
+    }
+    return undefined;
   } catch (err) {
     return err.message;
   }

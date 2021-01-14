@@ -16,14 +16,13 @@ const appOption: Options = {
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {
-      const token = connectionParams["Bearer"];
+      const token = connectionParams["Authorization"];
+      // console.log("token :", token.split(" ")[1]);
       if (token) {
-        const user = await decodeJWT(token);
-        if (user) {
-          return {
-            currentUser: user
-          };
-        }
+        const user = await decodeJWT(token.split(" ")[1]);
+        return {
+          currentUser: user
+        };
       }
       throw new Error("No token, Can't subscribe");
     }
