@@ -17,7 +17,7 @@ const resolvers: Resolvers = {
       try {
         const chat = await Chat.findOne(
           { id: chatId },
-          { relations: ["from", "to", "messages"] }
+          { relations: ["from", "to", "messages", "messages.user"] }
         );
         if (chat) {
           return {

@@ -24,10 +24,8 @@ const appOption: Options = {
             currentUser: user
           };
         }
-        throw new Error("No user found with this token");
-      } else {
-        throw new Error("No token, Can't subscribe");
       }
+      throw new Error("No token, Can't subscribe");
     }
   }
 };
