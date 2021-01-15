@@ -216,6 +216,20 @@ type SeeUserResponse {
   user: User
 }
 
+type Follower {
+  id: Int!
+  user: User!
+  userId: Int
+  createdAt: String
+}
+
+type Following {
+  id: Int!
+  user: User!
+  userId: Int
+  createdAt: String
+}
+
 type User {
   id: Int!
   email: String!
@@ -225,8 +239,8 @@ type User {
   firstName: String!
   lastName: String!
   loginSecret: String
-  following: [User]
-  follower: [User]
+  followings: [Following]
+  followers: [Follower]
   isFollowing: Boolean
   fbId: String
   googleId: String

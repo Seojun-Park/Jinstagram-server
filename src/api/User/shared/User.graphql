@@ -7,8 +7,8 @@ type User {
   firstName: String!
   lastName: String!
   loginSecret: String
-  following: [User]
-  follower: [User]
+  followings: [Following]
+  followers: [Follower]
   isFollowing: Boolean
   fbId: String
   googleId: String

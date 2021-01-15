@@ -20,7 +20,6 @@ const resolvers: Resolvers = {
         const existedChat = await Chat.findOne({
           where: [{ fromId: user.id }, { toId }]
         });
-        console.log(existedChat);
         if (existedChat) {
           return {
             ok: true,

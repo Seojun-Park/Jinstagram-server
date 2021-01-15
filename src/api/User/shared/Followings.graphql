@@ -1,0 +1,6 @@
+type Following {
+  id: Int!
+  user: User!
+  userId: Int
+  createdAt: String
+}

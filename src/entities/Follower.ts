@@ -1,0 +1,25 @@
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
+import User from "./User";
+
+@Entity()
+class Follower extends BaseEntity {
+  @PrimaryGeneratedColumn() id: number;
+
+  @ManyToOne((type) => User, (user) => user.followers)
+  user: User;
+
+  @Column({ nullable: true })
+  userId: number;
+
+  @CreateDateColumn()
+  createdAt: string;
+}
+
+export default Follower;

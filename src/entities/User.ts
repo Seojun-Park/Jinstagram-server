@@ -10,6 +10,8 @@ import {
 } from "typeorm";
 import Chat from "./Chat";
 import Comment from "./Comment";
+import Follower from "./Follower";
+import Following from "./Following";
 import Like from "./Like";
 import Message from "./Message";
 import Post from "./Post";
@@ -53,11 +55,11 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isFollowing: boolean;
 
-  @OneToMany((type) => User, (user) => user.following)
-  following: User[];
+  @OneToMany((type) => Following, (following) => following.user)
+  followings: Following[];
 
-  @OneToMany((type) => User, (user) => user.follower)
-  follower: User[];
+  @OneToMany((type) => Follower, (follower) => follower.user)
+  followers: Follower[];
 
   @OneToMany((type) => Post, (post) => post.user, { onDelete: "CASCADE" })
   posts: Post[];
