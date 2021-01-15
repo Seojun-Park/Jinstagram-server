@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -56,9 +57,11 @@ class User extends BaseEntity {
   isFollowing: boolean;
 
   @OneToMany((type) => Following, (following) => following.user)
+  @JoinColumn()
   followings: Following[];
 
   @OneToMany((type) => Follower, (follower) => follower.user)
+  @JoinColumn()
   followers: Follower[];
 
   @OneToMany((type) => Post, (post) => post.user, { onDelete: "CASCADE" })

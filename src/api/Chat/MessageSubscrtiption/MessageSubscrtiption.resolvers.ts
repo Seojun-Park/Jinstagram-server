@@ -14,8 +14,6 @@ const resolvers = {
           console.log("context", context);
           console.log("payload", payload);
           const user: User = context.currentUser;
-          // const user: User = request.user;
-          console.log(user);
           const message: Message = payload.MessageSubscription;
           try {
             const { chatId } = message;
