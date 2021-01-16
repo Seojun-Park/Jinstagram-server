@@ -4,7 +4,7 @@ import {
   GetFullPostQueryArgs,
   GetFullPostResponse
 } from "../../../types/graph";
-import User from "../../../entities/User";
+// import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
   Query: {
@@ -15,22 +15,13 @@ const resolvers: Resolvers = {
     ): Promise<GetFullPostResponse> => {
       isAuthenticated(request);
       const { page } = args;
-      const user: User = request.user;
+      // const user: User = request.user;
       try {
-        const followedUser = await User.find({
-          where: { isFollowing: true },
-          relations: ["posts", "posts.images"]
-        });
-        console.log(followedUser);
         const post = await Post.find({
           take: page * 5,
-          // where: [{ user: { isFollowing: true } }, { user: { id: user.id } }],
-          where: [{ user: { id: user.id } }],
           order: { updatedAt: "DESC" },
           relations: ["user", "likes", "comments", "comments.user", "images"]
         });
-        console.log(post);
-        // const post = null;
         if (post) {
           return {
             ok: true,

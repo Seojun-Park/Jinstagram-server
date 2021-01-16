@@ -27,6 +27,9 @@ class Post extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.posts)
   user: User;
 
+  @Column({ nullable: true })
+  userId: number;
+
   @OneToMany((type) => Image, (image) => image.post, { onDelete: "CASCADE" })
   images: Image[];
 
