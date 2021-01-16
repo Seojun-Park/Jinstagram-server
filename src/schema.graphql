@@ -239,8 +239,8 @@ type User {
   firstName: String!
   lastName: String!
   loginSecret: String
-  followings: [Following]
-  followers: [Follower]
+  followings: [Follower]
+  followers: [Following]
   isFollowing: Boolean
   fbId: String
   googleId: String

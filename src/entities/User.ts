@@ -56,13 +56,13 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isFollowing: boolean;
 
-  @OneToMany((type) => Following, (following) => following.user)
-  @JoinColumn()
-  followings: Following[];
-
   @OneToMany((type) => Follower, (follower) => follower.user)
   @JoinColumn()
-  followers: Follower[];
+  followings: Follower[];
+
+  @OneToMany((type) => Following, (following) => following.user)
+  @JoinColumn()
+  followers: Following[];
 
   @OneToMany((type) => Post, (post) => post.user, { onDelete: "CASCADE" })
   posts: Post[];

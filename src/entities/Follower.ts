@@ -12,7 +12,7 @@ import User from "./User";
 class Follower extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @ManyToOne((type) => User, (user) => user.followers)
+  @ManyToOne((type) => User, (user) => user.followings)
   user: User;
 
   @Column({ nullable: true })

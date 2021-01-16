@@ -15,34 +15,36 @@ const resolvers: Resolvers = {
       { request, isAuthenticated }
     ): Promise<ToggleFollowingResponse> => {
       isAuthenticated(request);
-      const me: User = request.user;
+      const requestUser: User = request.user;
       const { username } = args;
       try {
         const targetUser = await User.findOne(
           {
             username
           },
-          { relations: ["followers"] }
+          { relations: ["followers", "followings"] }
         );
         if (targetUser) {
           targetUser.isFollowing =
             targetUser.isFollowing === false ? true : false;
           if (targetUser.isFollowing) {
             const following = await Following.create({
+              user: requestUser
+            }).save();
+            const follower = await Follower.create({
               user: targetUser
             }).save();
-            const follower = await Follower.create({ user: me }).save();
             if (targetUser.followers.length !== 0) {
-              targetUser.followers = [...targetUser.followers, follower];
+              targetUser.followers = [...targetUser.followers, following];
             } else {
-              targetUser.followers = [follower];
+              targetUser.followers = [following];
             }
-            me.followings = [...me.followings, following];
+            requestUser.followings = [...requestUser.followings, follower];
             targetUser.save();
-            me.save();
+            requestUser.save();
           } else {
-            await Following.delete({ userId: targetUser.id });
-            await Follower.delete({ userId: me.id });
+            await Following.delete({ userId: requestUser.id });
+            await Follower.delete({ userId: targetUser.id });
           }
           targetUser.save();
           return {
