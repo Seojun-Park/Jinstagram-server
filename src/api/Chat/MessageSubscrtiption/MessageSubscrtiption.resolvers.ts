@@ -11,13 +11,15 @@ const resolvers = {
           return pubSub.asyncIterator("newChatMessage");
         },
         async (payload, _, { context }) => {
-          console.log("context", context);
-          console.log("payload", payload);
           const user: User = context.currentUser;
           const message: Message = payload.MessageSubscription;
+          console.log("this is message", message);
           try {
             const { chatId } = message;
-            const chat = await Chat.findOne({ id: chatId });
+            const chat = await Chat.findOne(
+              { id: chatId },
+              { relations: ["messages", "messages.user"] }
+            );
             if (chat) {
               return chat.fromId === user.id || chat.toId === user.id;
             }

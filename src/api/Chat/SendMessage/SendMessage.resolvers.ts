@@ -23,19 +23,27 @@ const resolvers: Resolvers = {
           { relations: ["messages", "messages.user"] }
         );
         if (chat) {
-          const message = await Message.create({
-            text,
-            chat,
-            user
-          }).save();
-          pubSub.publish("newChatMessage", {
-            MessageSubscription: message
-          });
-          return {
-            ok: true,
-            err: null,
-            message
-          };
+          if (chat.fromId === user.id || chat.toId === user.id) {
+            const message = await Message.create({
+              text,
+              chat,
+              user
+            }).save();
+            pubSub.publish("newChatMessage", {
+              MessageSubscription: message
+            });
+            return {
+              ok: true,
+              err: null,
+              message
+            };
+          } else {
+            return {
+              ok: false,
+              err: "Not Authorized",
+              message: null
+            };
+          }
         } else {
           return {
             ok: false,

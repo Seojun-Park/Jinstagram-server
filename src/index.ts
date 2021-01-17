@@ -17,9 +17,9 @@ const appOption: Options = {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {
       const token = connectionParams["Authorization"];
-      // console.log("token :", token.split(" ")[1]);
       if (token) {
         const user = await decodeJWT(token.split(" ")[1]);
+        console.log(user);
         return {
           currentUser: user
         };
