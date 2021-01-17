@@ -15,7 +15,14 @@ const resolvers: Resolvers = {
         const user = await User.findOne(
           { username },
           {
-            relations: ["posts", "posts.images", "likes", "comments"]
+            relations: [
+              "posts",
+              "posts.images",
+              "likes",
+              "comments",
+              "followers",
+              "following"
+            ]
           }
         );
         if (user) {

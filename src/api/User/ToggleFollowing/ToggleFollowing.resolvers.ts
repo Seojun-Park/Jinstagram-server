@@ -28,13 +28,11 @@ const resolvers: Resolvers = {
           },
           { relations: ["followers", "following"] }
         );
-        // console.log(targetUser, requestUser, action);
         if (targetUser && requestUser) {
           if (action === "FOLLOW" && targetUser.isFollowing === false) {
-            targetUser.followers = [];
-            requestUser.following = [];
-            targetUser.followers.push(requestUser);
-            requestUser.following.push(targetUser);
+            targetUser.isFollowing = true;
+            targetUser.followers = [...targetUser.followers, requestUser];
+            requestUser.following = [...requestUser.following, targetUser];
             targetUser.save();
             requestUser.save();
             return {
@@ -42,6 +40,7 @@ const resolvers: Resolvers = {
               err: null
             };
           } else if (action === "UNFOLLOW" && targetUser.isFollowing === true) {
+            targetUser.isFollowing = false;
             const tarIdx = targetUser.followers.findIndex((elem) => {
               return elem.username === targetUser.username;
             });
