@@ -19,7 +19,6 @@ const appOption: Options = {
       const token = connectionParams["Authorization"];
       if (token) {
         const user = await decodeJWT(token.split(" ")[1]);
-        console.log(user);
         return {
           currentUser: user
         };

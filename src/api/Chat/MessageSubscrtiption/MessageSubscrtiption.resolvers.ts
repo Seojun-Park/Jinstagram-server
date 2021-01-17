@@ -13,7 +13,6 @@ const resolvers = {
         async (payload, _, { context }) => {
           const user: User = context.currentUser;
           const message: Message = payload.MessageSubscription;
-          console.log("this is message", message);
           try {
             const { chatId } = message;
             const chat = await Chat.findOne(
