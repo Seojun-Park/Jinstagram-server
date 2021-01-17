@@ -1,43 +1,43 @@
+import Like from "../../../entities/Like";
 import { Resolvers } from "../../../types/resolvers";
-import { GetPostQueryArgs, GetPostResponse } from "../../../types/graph";
-import Post from "../../../entities/Post";
+import { GetLikeQueryArgs, GetLikeResponse } from "../../../types/graph";
 
 const resolvers: Resolvers = {
   Query: {
-    GetPost: async (
+    GetLike: async (
       _,
-      args: GetPostQueryArgs,
+      args: GetLikeQueryArgs,
       { request, isAuthenticated }
-    ): Promise<GetPostResponse> => {
+    ): Promise<GetLikeResponse> => {
       isAuthenticated(request);
       const { postId } = args;
       try {
-        const post = await Post.findOne(
-          { id: postId },
-          { relations: ["images", "likes"] }
-        );
-        if (post) {
+        const likes = await Like.find({
+          where: {
+            postId
+          }
+        });
+        if (likes) {
           return {
             ok: true,
             err: null,
-            post
+            likes
           };
         } else {
           return {
             ok: false,
-            err: "No post found",
-            post: null
+            err: "no likes",
+            likes: null
           };
         }
       } catch (err) {
         return {
           ok: false,
           err: err.message,
-          post: null
+          likes: null
         };
       }
     }
   }
 };
-
 export default resolvers;

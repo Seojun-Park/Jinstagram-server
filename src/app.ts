@@ -43,6 +43,7 @@ class App {
     next: NextFunction
   ): Promise<void> => {
     const token = req.get("authorization");
+    console.log(token);
     if (token) {
       const user = await decodeJWT(token);
       if (user) {

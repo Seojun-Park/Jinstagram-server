@@ -32,6 +32,7 @@ type Query {
   GetComment(postId: Int!): GetCommentResponse!
   GetFollowedPost(page: Int!): GetFollowedPostResponse!
   GetFullPost(page: Int!): GetFullPostResponse!
+  GetLike(postId: Int!): GetLikeResponse!
   GetPost(postId: Int!): GetPostResponse!
   Me: MeResponse!
   SearchUser(term: String!): SearchUserResponse!
@@ -105,6 +106,12 @@ type GetFullPostResponse {
   post: [Post]
 }
 
+type GetLikeResponse {
+  ok: Boolean!
+  err: String
+  likes: [Like]
+}
+
 type GetPostResponse {
   ok: Boolean!
   err: String
@@ -157,6 +164,7 @@ type Post {
 type ToggleLikeResponse {
   ok: Boolean!
   err: String
+  ret: String
 }
 
 type UploadPostResponse {

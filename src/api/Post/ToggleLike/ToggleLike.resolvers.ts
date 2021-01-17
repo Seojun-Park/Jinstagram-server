@@ -17,36 +17,44 @@ const resolvers: Resolvers = {
       isAuthenticated(request);
       const user: User = request.user;
       const { postId } = args;
-      const post = await Post.findOne({ id: postId });
+      const post = await Post.findOne({ id: postId }, { relations: ["likes"] });
       try {
         if (post) {
-          if (post.isLiked === false) {
-            post.isLiked = true;
-            await Like.create({
-              user,
-              post
-            }).save();
+          const existLike = await Like.findOne({
+            where: {
+              userId: user.id
+            }
+          });
+          if (existLike) {
+            await Like.delete({ id: existLike.id });
+            return {
+              ok: true,
+              err: null,
+              ret: "DEL"
+            };
           } else {
-            post.isLiked = false;
-            await Like.delete({
-              postId: post.id
-            });
+            await Like.create({
+              post,
+              user
+            }).save();
+            return {
+              ok: true,
+              err: null,
+              ret: "CRA"
+            };
           }
-          post.save();
-          return {
-            ok: true,
-            err: null
-          };
         } else {
           return {
             ok: false,
-            err: "Not found the post"
+            err: "Not found the post",
+            ret: null
           };
         }
       } catch (err) {
         return {
           ok: false,
-          err: err.message
+          err: err.message,
+          ret: null
         };
       }
     }

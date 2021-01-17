@@ -1,6 +1,7 @@
 type ToggleLikeResponse {
   ok: Boolean!
   err: String
+  ret: String
 }
 
 type Mutation {

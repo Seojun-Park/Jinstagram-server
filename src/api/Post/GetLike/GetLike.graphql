@@ -1,0 +1,9 @@
+type GetLikeResponse {
+  ok: Boolean!
+  err: String
+  likes: [Like]
+}
+
+type Query {
+  GetLike(postId: Int!): GetLikeResponse!
+}
