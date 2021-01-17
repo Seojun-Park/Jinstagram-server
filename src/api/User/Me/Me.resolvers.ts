@@ -13,7 +13,13 @@ const resolvers: Resolvers = {
             id: user.id
           },
           {
-            relations: ["posts"]
+            relations: [
+              "posts",
+              "chatTo",
+              "chatTo.to",
+              "chatTo.messages",
+              "chatTo.messages.user"
+            ]
           }
         );
         if (fullUser) {
