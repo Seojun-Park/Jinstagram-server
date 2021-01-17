@@ -17,7 +17,7 @@ type Mutation {
   FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!, profilePhoto: String): FacebookConnectResponse!
   GoogleConnect(googleId: String!, firstName: String!, lastName: String!, email: String!): GoogleConnectResponse!
   RequestCode(email: String!): RequestCodeResponse!
-  ToggleFollowing(username: String!): ToggleFollowingResponse!
+  ToggleFollowing(username: String!, action: String!): ToggleFollowingResponse!
 }
 
 type GetChatResponse {
@@ -216,20 +216,6 @@ type SeeUserResponse {
   user: User
 }
 
-type Follower {
-  id: Int!
-  user: User!
-  userId: Int
-  createdAt: String
-}
-
-type Following {
-  id: Int!
-  user: User!
-  userId: Int
-  createdAt: String
-}
-
 type User {
   id: Int!
   email: String!
@@ -239,8 +225,8 @@ type User {
   firstName: String!
   lastName: String!
   loginSecret: String
-  followings: [Follower]
-  followers: [Following]
+  following: [User]
+  followers: [User]
   isFollowing: Boolean
   fbId: String
   googleId: String

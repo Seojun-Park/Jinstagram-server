@@ -1,18 +1,18 @@
 import { IsEmail } from "class-validator";
 import {
+  AfterLoad,
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
 import Chat from "./Chat";
 import Comment from "./Comment";
-import Follower from "./Follower";
-import Following from "./Following";
 import Like from "./Like";
 import Message from "./Message";
 import Post from "./Post";
@@ -56,13 +56,13 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isFollowing: boolean;
 
-  @OneToMany((type) => Follower, (follower) => follower.user)
-  @JoinColumn()
-  followings: Follower[];
+  @ManyToMany((type) => User, (user) => user.following)
+  @JoinTable()
+  followers: User[];
 
-  @OneToMany((type) => Following, (following) => following.user)
-  @JoinColumn()
-  followers: Following[];
+  @ManyToMany((type) => User, (user) => user.followers)
+  @JoinTable()
+  following: User[];
 
   @OneToMany((type) => Post, (post) => post.user, { onDelete: "CASCADE" })
   posts: Post[];
@@ -96,6 +96,16 @@ class User extends BaseEntity {
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
+  }
+
+  @AfterLoad()
+  async nullChecks() {
+    if (!this.followers) {
+      this.followers = [];
+    }
+    if (!this.following) {
+      this.following = [];
+    }
   }
 }
 

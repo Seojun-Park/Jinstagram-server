@@ -4,8 +4,6 @@ import {
   ToggleFollowingResponse
 } from "../../../types/graph";
 import User from "../../../entities/User";
-import Following from "../../../entities/Following";
-import Follower from "../../../entities/Follower";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -15,42 +13,55 @@ const resolvers: Resolvers = {
       { request, isAuthenticated }
     ): Promise<ToggleFollowingResponse> => {
       isAuthenticated(request);
-      const requestUser: User = request.user;
-      const { username } = args;
+      const user: User = request.user;
+      const { username, action } = args;
       try {
+        const requestUser = await User.findOne(
+          {
+            id: user.id
+          },
+          { relations: ["followers", "following"] }
+        );
         const targetUser = await User.findOne(
           {
             username
           },
-          { relations: ["followers", "followings"] }
+          { relations: ["followers", "following"] }
         );
-        if (targetUser) {
-          targetUser.isFollowing =
-            targetUser.isFollowing === false ? true : false;
-          if (targetUser.isFollowing) {
-            const following = await Following.create({
-              user: requestUser
-            }).save();
-            const follower = await Follower.create({
-              user: targetUser
-            }).save();
-            if (targetUser.followers.length !== 0) {
-              targetUser.followers = [...targetUser.followers, following];
-            } else {
-              targetUser.followers = [following];
-            }
-            requestUser.followings = [...requestUser.followings, follower];
+        // console.log(targetUser, requestUser, action);
+        if (targetUser && requestUser) {
+          if (action === "FOLLOW" && targetUser.isFollowing === false) {
+            targetUser.followers = [];
+            requestUser.following = [];
+            targetUser.followers.push(requestUser);
+            requestUser.following.push(targetUser);
             targetUser.save();
             requestUser.save();
+            return {
+              ok: true,
+              err: null
+            };
+          } else if (action === "UNFOLLOW" && targetUser.isFollowing === true) {
+            const tarIdx = targetUser.followers.findIndex((elem) => {
+              return elem.username === targetUser.username;
+            });
+            targetUser.followers.splice(tarIdx, 1);
+            targetUser.save();
+            const reqIdx = requestUser.following.findIndex((elem) => {
+              return elem.username === requestUser.username;
+            });
+            requestUser.following.splice(reqIdx, 1);
+            requestUser.save();
+            return {
+              ok: true,
+              err: null
+            };
           } else {
-            await Following.delete({ userId: requestUser.id });
-            await Follower.delete({ userId: targetUser.id });
+            return {
+              ok: false,
+              err: "no action or user"
+            };
           }
-          targetUser.save();
-          return {
-            ok: true,
-            err: null
-          };
         } else {
           return {
             ok: false,

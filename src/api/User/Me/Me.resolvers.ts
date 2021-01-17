@@ -13,13 +13,7 @@ const resolvers: Resolvers = {
             id: user.id
           },
           {
-            relations: [
-              "posts",
-              "followers",
-              "followings",
-              "followers.user",
-              "followings.user"
-            ]
+            relations: ["posts"]
           }
         );
         if (fullUser) {

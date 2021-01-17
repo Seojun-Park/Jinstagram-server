@@ -15,7 +15,7 @@ const decodeJWT = async (token: string): Promise<any> => {
             "likes",
             "comments",
             "followers",
-            "followings"
+            "following"
           ]
         }
       );

@@ -4,5 +4,5 @@ type ToggleFollowingResponse {
 }
 
 type Mutation {
-  ToggleFollowing(username: String!): ToggleFollowingResponse!
+  ToggleFollowing(username: String!, action: String!): ToggleFollowingResponse!
 }

@@ -1,6 +1,0 @@
-type Follower {
-  id: Int!
-  user: User!
-  userId: Int
-  createdAt: String
-}
