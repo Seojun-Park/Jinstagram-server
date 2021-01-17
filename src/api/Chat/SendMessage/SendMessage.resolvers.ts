@@ -18,7 +18,10 @@ const resolvers: Resolvers = {
       const { text, chatId } = args;
       const user: User = request.user;
       try {
-        const chat = await Chat.findOne({ id: chatId });
+        const chat = await Chat.findOne(
+          { id: chatId },
+          { relations: ["messages", "messages.user"] }
+        );
         if (chat) {
           const message = await Message.create({
             text,

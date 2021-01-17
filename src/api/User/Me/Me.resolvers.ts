@@ -17,8 +17,14 @@ const resolvers: Resolvers = {
               "posts",
               "chatTo",
               "chatTo.to",
+              "chatTo.from",
               "chatTo.messages",
-              "chatTo.messages.user"
+              "chatTo.messages.user",
+              "chatFrom",
+              "chatFrom.to",
+              "chatFrom.from",
+              "chatFrom.messages",
+              "chatFrom.messages.user"
             ]
           }
         );

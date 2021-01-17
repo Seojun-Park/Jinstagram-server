@@ -18,7 +18,10 @@ const resolvers: Resolvers = {
       const { toId } = args;
       try {
         const existedChat = await Chat.findOne({
-          where: [{ fromId: user.id }, { toId }]
+          where: [
+            { fromId: user.id, toId },
+            { fromId: toId, toId: user.id }
+          ]
         });
         if (existedChat) {
           return {
@@ -29,8 +32,8 @@ const resolvers: Resolvers = {
         } else {
           if (user && toId) {
             const to = await User.findOne({ id: toId });
-            const from = await User.findOne({ id: user.id });
-            const chat = await Chat.create({ from, to }).save();
+            // const from = await User.findOne({ id: user.id });
+            const chat = await Chat.create({ from: user, to }).save();
             return {
               ok: true,
               err: null,
