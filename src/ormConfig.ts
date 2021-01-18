@@ -4,7 +4,7 @@ const connectionOptions: ConnectionOptions = {
   type: "postgres",
   database: "jinstagram",
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: ["entities/**/*.*"],
   port: 5432,
   host: process.env.DB_ENDPOINT,

@@ -18,7 +18,9 @@ const appOption: Options = {
     onConnect: async (connectionParams) => {
       const token = connectionParams["Authorization"];
       if (token) {
-        const user = await decodeJWT(token.split(" ")[1]);
+        const user = await decodeJWT(
+          (token as string).includes(" ") ? token.split(" ")[1] : token
+        );
         return {
           currentUser: user
         };
