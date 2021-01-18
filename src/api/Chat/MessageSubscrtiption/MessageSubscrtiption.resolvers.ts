@@ -8,11 +8,9 @@ const resolvers = {
     MessageSubscription: {
       subscribe: withFilter(
         (_, __, { pubSub }) => {
-          console.log("listen");
           return pubSub.asyncIterator("newChatMessage");
         },
         async (payload, _, { context }) => {
-          console.log("listen2");
           const user: User = context.currentUser;
           const message: Message = payload.MessageSubscription;
           try {

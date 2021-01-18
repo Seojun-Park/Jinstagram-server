@@ -4,6 +4,7 @@ import { createConnection } from "typeorm";
 import connectionOptions from "./ormConfig";
 import app from "./app";
 import decodeJWT from "./utils/decodeJWT";
+
 const PLAYGROUND_ENDPOINT: string = "/playground";
 const GRAPHQL_ENDPOINT: string = "/graphql";
 const SUBSCRIPTION_ENDPOINT: string = "/subscription";
@@ -16,7 +17,7 @@ const appOption: Options = {
   subscriptions: {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {
-      const token = connectionParams["Authorization"];
+      const token = connectionParams["Bearer"];
       if (token) {
         const user = await decodeJWT(
           (token as string).includes(" ") ? token.split(" ")[1] : token
