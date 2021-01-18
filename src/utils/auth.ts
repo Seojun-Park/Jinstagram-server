@@ -1,4 +1,5 @@
-import "../env";
+// import "../env";
+require("dotenv").config();
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
@@ -40,6 +41,9 @@ export const sendSecretMail = async (address: string, secret: string) => {
   });
 };
 
-const JWT = process.env.JWT_SECRET || "";
-
-export const generateToken = (id) => jwt.sign({ id }, JWT);
+export const generateToken = (id) => {
+  const secret = process.env.JWT_SECRET;
+  return jwt.sign({ id }, secret as string, {
+    expiresIn: 10080
+  });
+};

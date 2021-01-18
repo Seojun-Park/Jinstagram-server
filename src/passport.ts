@@ -8,6 +8,7 @@ const jwtOptions = {
 };
 
 const verifyUser = async (payload, done) => {
+  console.log(process.env.JWT_SECRET);
   try {
     const user = await User.findOne({ id: payload.id });
     if (user !== null) {
