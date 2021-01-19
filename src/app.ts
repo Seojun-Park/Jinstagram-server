@@ -28,6 +28,7 @@ class App {
       // context: ({ request }) => ({ request, isAuthenticated })
     });
     this.middlewares();
+    // const url = "https://jinsta.herokuapp.com/playground";
   }
   private middlewares = (): void => {
     this.app.express.use(cors());

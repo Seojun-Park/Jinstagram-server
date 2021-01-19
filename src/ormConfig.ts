@@ -1,8 +1,11 @@
+import "./env";
+
 import { ConnectionOptions } from "typeorm";
 
 const connectionOptions: ConnectionOptions = {
   type: "postgres",
-  database: process.env.DB_NAME || "jinstagram",
+  // database: process.env.DB_NAME || "jinstagram",
+  database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
   entities: ["entities/**/*.*"],
